@@ -4,7 +4,7 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: secret
-      POSTGRES_DB: kitchen
+      POSTGRES_DB: moviehub
     ports:
       - "5432:5432"
     volumes:
