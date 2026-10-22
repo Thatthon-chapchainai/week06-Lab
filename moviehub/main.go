@@ -58,10 +58,13 @@ func main() {
 	mux.HandleFunc("POST /api/auth/register", h.Register)
 	mux.HandleFunc("POST /api/auth/login", h.Login)
 	mux.HandleFunc("GET /api/me", login(h.Me))
+    mux.HandleFunc("GET /api/me/favorites", login(h.ListFavorites))
     mux.HandleFunc("GET /api/genres", h.Genres)
 	mux.HandleFunc("GET /api/movies", h.SearchMovies)
 	mux.HandleFunc("GET /api/movies/{id}", h.GetMovie)
 	mux.HandleFunc("GET /api/movies/{id}/reviews", h.ListReviews)
+    mux.HandleFunc("PUT /api/movies/{id}/favorite", login(h.AddFavorite))
+    mux.HandleFunc("DELETE /api/movies/{id}/favorite", login(h.RemoveFavorite))
 
 	// หลังบ้าน: ทุกเส้นทางใต้ /api/admin ผ่าน admin(...) ไม่มีข้อยกเว้น
     mux.HandleFunc("GET /api/admin/stats", admin(h.AdminStats))

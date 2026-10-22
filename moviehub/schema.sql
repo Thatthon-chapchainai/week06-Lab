@@ -150,6 +150,18 @@ CREATE TABLE wishlist_items (
 CREATE INDEX idx_wishlist_member_added ON wishlist_items (member_id, added_at DESC);
 
 -- ---------------------------------------------------------------------------
+-- favorites: หนังที่สมาชิกชอบ สมาชิก 1 คนกดใจหนัง 1 เรื่องได้ครั้งเดียว
+-- ---------------------------------------------------------------------------
+CREATE TABLE favorites (
+    member_id   BIGINT        NOT NULL REFERENCES members (id) ON DELETE CASCADE,
+    movie_id    BIGINT        NOT NULL REFERENCES movies (id) ON DELETE CASCADE,
+    added_at    TIMESTAMPTZ   NOT NULL DEFAULT now(),
+    PRIMARY KEY (member_id, movie_id)
+);
+
+CREATE INDEX idx_favorites_member_added ON favorites (member_id, added_at DESC);
+
+-- ---------------------------------------------------------------------------
 -- seed: แนวหนังทั้งหมดของ TMDB (/genre/movie/list, en-US + th-TH)
 -- ---------------------------------------------------------------------------
 INSERT INTO genres (id, name_en, name_th) VALUES
